@@ -10,15 +10,901 @@
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <!-- Custom Styles -->
-     <link rel="stylesheet" href="style.css">
-   
+    <style>
+        :root {
+            --primary: #1E4E8C;
+            --primary-dark: #0D2B4A;
+            --primary-light: #4A90E2;
+            --accent: #FFD700;
+            --tech-green: #00C896;
+            --tech-purple: #7B68EE;
+            --tech-orange: #FF7F50;
+            --tech-red: #FF5252;
+            --light-bg: #F8F9FA;
+            --dark-bg: #121212;
+            --text-dark: #212529;
+            --text-light: #F8F9FA;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            color: var(--text-dark);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-scrolled {
+            padding: 0.5rem 0;
+            background-color: rgba(30, 78, 140, 0.95) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand img {
+            height: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-scrolled .navbar-brand img {
+            height: 40px;
+        }
+
+        .nav-link {
+            position: relative;
+            margin: 0 0.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 4rem 0;
+            width: 100%;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" stroke="white" stroke-width="1" fill="none" opacity="0.1"/></svg>');
+            background-size: 150px 150px;
+            opacity: 0.3;
+        }
+
+        .hero-bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://source.unsplash.com/random/1920x1080/?school,campus');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .hero-heading {
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-heading span {
+            display: block;
+            background: linear-gradient(to right, #ffffff, var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-subheading {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-outline-light {
+            border-radius: 50px;
+            padding: 0.75rem 2rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-light:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* About Section */
+        .section {
+            padding: 6rem 0;
+        }
+
+        .section-heading {
+            position: relative;
+            margin-bottom: 3rem;
+            display: inline-block;
+        }
+
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            bottom: -10px;
+            left: 0;
+            background: var(--primary);
+        }
+
+        .about-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .about-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Skills */
+        .skill-bar {
+            height: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            border-radius: 5px;
+            width: 0;
+            transition: width 1.5s ease;
+        }
+
+        .skill-ai {
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+        }
+
+        .skill-robotics {
+            background: linear-gradient(to right, var(--tech-purple), var(--primary-light));
+        }
+
+        .skill-cyber {
+            background: linear-gradient(to right, var(--tech-red), var(--tech-orange));
+        }
+
+        .skill-ml {
+            background: linear-gradient(to right, var(--tech-green), var(--primary-light));
+        }
+
+        /* Stats Counter */
+        .stats-container {
+            background-color: white;
+            border-radius: 15px;
+            padding: 3rem 2rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+            margin-top: 3rem;
+        }
+
+        .counter-item {
+            text-align: center;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .counter-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .counter-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .counter-item:hover .counter-icon {
+            transform: scale(1.2);
+            color: var(--primary-light);
+        }
+
+        .counter {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .counter::after {
+            content: '+';
+            position: absolute;
+            top: 0;
+            right: -20px;
+            font-size: 2rem;
+            color: var(--accent);
+        }
+
+        /* Research Cards */
+        .research-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            height: 100%;
+            transition: all 0.3s ease;
+            border-top: 5px solid var(--primary);
+        }
+
+        .research-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .research-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .research-card:hover .research-icon {
+            transform: scale(1.2);
+            color: var(--primary-light);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 3px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -13px;
+            background-color: var(--accent);
+            border: 4px solid var(--primary);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .timeline-item.left {
+            left: 0;
+        }
+
+        .timeline-item.right {
+            left: 50%;
+        }
+
+        .timeline-item.right::after {
+            left: -12px;
+        }
+
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-date {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Project Cards */
+        .project-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-img-wrapper {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .project-card img {
+            transition: transform 1s ease;
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .project-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        /* Team Cards */
+        .team-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            height: 100%;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .team-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin: 1.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .team-card:hover .team-icon {
+            transform: scale(1.2);
+            color: var(--primary-light);
+        }
+
+        /* Testimonials */
+        .testimonial-section {
+            background-color: var(--light-bg);
+        }
+
+        .testimonial-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            height: 100%;
+            transition: all 0.3s ease;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            border: 3px solid var(--primary);
+            object-fit: cover;
+        }
+
+        .testimonial-quote {
+            font-style: italic;
+            position: relative;
+            padding: 0 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-quote::before,
+        .testimonial-quote::after {
+            content: '"';
+            font-size: 3rem;
+            color: var(--accent);
+            position: absolute;
+            opacity: 0.3;
+        }
+
+        .testimonial-quote::before {
+            top: -20px;
+            left: 0;
+        }
+
+        .testimonial-quote::after {
+            bottom: -40px;
+            right: 0;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" stroke="white" stroke-width="1" fill="none" opacity="0.1"/></svg>');
+            background-size: 150px 150px;
+            opacity: 0.3;
+        }
+
+        .contact-form {
+            background-color: white;
+            border-radius: 15px;
+            padding: 3rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-control {
+            border-radius: 10px;
+            padding: 0.75rem 1.25rem;
+            border: 1px solid #ced4da;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 0 0.25rem rgba(30, 78, 140, 0.25);
+            border-color: var(--primary);
+        }
+
+        /* Newsletter */
+        .newsletter-form {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            font-size: 1rem;
+            padding-right: 150px;
+        }
+
+        .newsletter-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            bottom: 5px;
+            border-radius: 50px;
+            padding: 0 1.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-btn:hover {
+            background: var(--primary-dark);
+            transform: translateX(-5px);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--primary-dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-heading {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-heading::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 2px;
+            bottom: -10px;
+            left: 0;
+            background: var(--accent);
+        }
+
+        .footer-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: block;
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-link:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            margin-right: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background-color: var(--accent);
+            color: var(--primary-dark);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Enhanced Responsive Adjustments */
+        @media (max-width: 1200px) {
+            .hero-heading {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subheading {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .section {
+                padding: 5rem 0;
+            }
+            
+            .hero-content {
+                padding: 5rem 0;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item.right {
+                left: 0;
+            }
+
+            .timeline-item.left::after,
+            .timeline-item.right::after {
+                left: 18px;
+            }
+            
+            .counter {
+                font-size: 2.5rem;
+            }
+            
+            .counter::after {
+                right: -15px;
+                font-size: 1.8rem;
+            }
+            
+            .newsletter-input {
+                padding-right: 120px;
+            }
+            
+            .newsletter-btn {
+                padding: 0 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 4rem 0;
+            }
+
+            .hero-content {
+                padding: 4rem 0;
+                text-align: center;
+            }
+            
+            .section-heading {
+                font-size: 1.8rem;
+            }
+
+            .hero-heading {
+                font-size: 2.2rem;
+            }
+
+            .hero-subheading {
+                font-size: 1.2rem;
+            }
+            
+            .btn-primary, .btn-outline-light {
+                padding: 0.6rem 1.5rem;
+            }
+            
+            .counter-item {
+                margin-bottom: 2rem;
+            }
+            
+            .counter {
+                font-size: 2.2rem;
+            }
+            
+            .counter::after {
+                right: -15px;
+                font-size: 1.5rem;
+            }
+            
+            .contact-form {
+                padding: 2rem;
+            }
+            
+            .testimonial-card, .research-card, .team-card {
+                margin-bottom: 2rem;
+            }
+            
+            .footer {
+                padding: 3rem 0 1.5rem;
+            }
+            
+            .footer-heading {
+                font-size: 1.3rem;
+                margin-top: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section {
+                padding: 3rem 0;
+            }
+            
+            .hero-content {
+                padding: 3rem 0;
+            }
+            
+            .hero-heading {
+                font-size: 1.8rem;
+            }
+
+            .hero-subheading {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .btn-primary, .btn-outline-light {
+                padding: 0.5rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            
+            .d-flex.flex-wrap.gap-3 {
+                justify-content: center;
+            }
+            
+            .section-heading {
+                font-size: 1.5rem;
+                text-align: center;
+                display: block;
+            }
+            
+            .section-heading::after {
+                left: 25%;
+                width: 50%;
+            }
+            
+            .counter-item {
+                padding: 1rem 0.5rem;
+            }
+            
+            .counter {
+                font-size: 2rem;
+            }
+            
+            .counter::after {
+                right: -12px;
+                font-size: 1.2rem;
+            }
+            
+            .contact-form {
+                padding: 1.5rem;
+            }
+            
+            .newsletter-form {
+                max-width: 100%;
+            }
+            
+            .newsletter-input {
+                padding: 0.8rem 1rem;
+                padding-right: 110px;
+            }
+            
+            .newsletter-btn {
+                padding: 0 0.8rem;
+                font-size: 0.9rem;
+            }
+            
+            .back-to-top {
+                width: 40px;
+                height: 40px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+
+        /* Mobile Navigation Improvements */
+        @media (max-width: 992px) {
+            .navbar-collapse {
+                background-color: var(--primary);
+                padding: 1rem;
+                border-radius: 0 0 15px 15px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-link {
+                padding: 0.8rem 1rem;
+                margin: 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .nav-link:last-child {
+                border-bottom: none;
+            }
+        }
+    </style>
 </head>
 
-    
 <body data-bs-spy="scroll" data-bs-target="#navbar">
     <!-- Navbar -->
     <nav id="navbar" class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: var(--primary);">
@@ -26,7 +912,7 @@
             <a class="navbar-brand" href="#">
                 <img src="unnamed-removebg-preview.png" alt="Revotech Logo" class="img-fluid">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -74,11 +960,12 @@
             <div class="row mb-5">
                 <div class="col-lg-6" data-aos="fade-right">
                     <h2 class="section-heading">About Revotech</h2>
-                    <p class="lead mb-4">Revotech is the premier technology society of Galahitiya Central College, dedicated to fostering innovation, technological exploration, and collaborative learning.</p>
-                    
+                    <p class="lead mb-4">Revotech is the premier technology society of Galahitiya Central College,
+                        dedicated to fostering innovation, technological exploration, and collaborative learning.</p>
+
                     <div class="mb-5">
                         <h5 class="mb-3">Our Expertise</h5>
-                        
+
                         <div>
                             <div class="d-flex justify-content-between mb-2">
                                 <span>Artificial Intelligence</span>
@@ -88,7 +975,7 @@
                                 <div class="skill-progress skill-ai" data-progress="90"></div>
                             </div>
                         </div>
-                        
+
                         <div>
                             <div class="d-flex justify-content-between mb-2">
                                 <span>Robotics</span>
@@ -98,7 +985,7 @@
                                 <div class="skill-progress skill-robotics" data-progress="85"></div>
                             </div>
                         </div>
-                        
+
                         <div>
                             <div class="d-flex justify-content-between mb-2">
                                 <span>Cybersecurity</span>
@@ -108,7 +995,7 @@
                                 <div class="skill-progress skill-cyber" data-progress="75"></div>
                             </div>
                         </div>
-                        
+
                         <div>
                             <div class="d-flex justify-content-between mb-2">
                                 <span>Machine Learning</span>
@@ -120,36 +1007,41 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-6" data-aos="fade-left" data-aos-delay="300">
                     <div class="card about-card h-100">
                         <div class="card-body p-4">
                             <h4 class="card-title mb-4 text-primary">Our Mission & Vision</h4>
-                            
+
                             <div class="mb-4">
                                 <h5>Mission</h5>
-                                <p>To empower students with cutting-edge technological skills and innovative thinking that prepares them for the digital future.</p>
+                                <p>To empower students with cutting-edge technological skills and innovative thinking
+                                    that prepares them for the digital future.</p>
                             </div>
-                            
+
                             <div class="mb-4">
                                 <h5>Vision</h5>
-                                <p>Creating a community of tech-savvy individuals who will lead the digital transformation of tomorrow.</p>
+                                <p>Creating a community of tech-savvy individuals who will lead the digital
+                                    transformation of tomorrow.</p>
                             </div>
-                            
+
                             <div>
                                 <h5>Our Values</h5>
                                 <ul class="list-unstyled">
-                                    <li><i class="fas fa-check-circle text-primary me-2"></i> Innovation & Creativity</li>
-                                    <li><i class="fas fa-check-circle text-primary me-2"></i> Collaboration & Teamwork</li>
+                                    <li><i class="fas fa-check-circle text-primary me-2"></i> Innovation & Creativity
+                                    </li>
+                                    <li><i class="fas fa-check-circle text-primary me-2"></i> Collaboration & Teamwork
+                                    </li>
                                     <li><i class="fas fa-check-circle text-primary me-2"></i> Continuous Learning</li>
-                                    <li><i class="fas fa-check-circle text-primary me-2"></i> Ethical Technology Use</li>
+                                    <li><i class="fas fa-check-circle text-primary me-2"></i> Ethical Technology Use
+                                    </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <!-- Stats Counter Section -->
             <div class="row stats-container" data-aos="fade-up">
                 <div class="col-md-3 col-sm-6 counter-item">
@@ -159,7 +1051,7 @@
                     <div class="counter" data-target="150">0</div>
                     <div class="counter-title">Active Members</div>
                 </div>
-                
+
                 <div class="col-md-3 col-sm-6 counter-item">
                     <div class="counter-icon">
                         <i class="fas fa-project-diagram"></i>
@@ -167,7 +1059,7 @@
                     <div class="counter" data-target="25">0</div>
                     <div class="counter-title">Projects Completed</div>
                 </div>
-                
+
                 <div class="col-md-3 col-sm-6 counter-item">
                     <div class="counter-icon">
                         <i class="fas fa-trophy"></i>
@@ -175,7 +1067,7 @@
                     <div class="counter" data-target="10">0</div>
                     <div class="counter-title">Awards Won</div>
                 </div>
-                
+
                 <div class="col-md-3 col-sm-6 counter-item">
                     <div class="counter-icon">
                         <i class="fas fa-calendar-alt"></i>
@@ -194,7 +1086,7 @@
                 <h2 class="section-heading">Research Domains</h2>
                 <p class="lead">Exploring cutting-edge technologies to solve real-world problems</p>
             </div>
-            
+
             <div class="row">
                 <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
                     <div class="card research-card h-100">
@@ -203,11 +1095,12 @@
                                 <i class="fas fa-brain"></i>
                             </div>
                             <h5 class="card-title">Artificial Intelligence</h5>
-                            <p class="card-text">Exploring machine learning and neural network technologies to create intelligent systems.</p>
+                            <p class="card-text">Exploring machine learning and neural network technologies to create
+                                intelligent systems.</p>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
                     <div class="card research-card h-100">
                         <div class="card-body text-center p-4">
@@ -215,11 +1108,12 @@
                                 <i class="fas fa-robot"></i>
                             </div>
                             <h5 class="card-title">Robotics</h5>
-                            <p class="card-text">Developing intelligent robotic systems and automation solutions for various applications.</p>
+                            <p class="card-text">Developing intelligent robotic systems and automation solutions for
+                                various applications.</p>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
                     <div class="card research-card h-100">
                         <div class="card-body text-center p-4">
@@ -227,11 +1121,12 @@
                                 <i class="fas fa-shield-alt"></i>
                             </div>
                             <h5 class="card-title">Cybersecurity</h5>
-                            <p class="card-text">Advancing digital security and network protection strategies for safer digital environments.</p>
+                            <p class="card-text">Advancing digital security and network protection strategies for safer
+                                digital environments.</p>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
                     <div class="card research-card h-100">
                         <div class="card-body text-center p-4">
@@ -239,7 +1134,8 @@
                                 <i class="fas fa-vr-cardboard"></i>
                             </div>
                             <h5 class="card-title">AR/VR Technology</h5>
-                            <p class="card-text">Creating immersive experiences through augmented and virtual reality technologies.</p>
+                            <p class="card-text">Creating immersive experiences through augmented and virtual reality
+                                technologies.</p>
                         </div>
                     </div>
                 </div>
@@ -254,7 +1150,7 @@
                 <h2 class="section-heading">Our Journey</h2>
                 <p class="lead">Milestones that define our growth and success</p>
             </div>
-            
+
             <div class="timeline">
                 <div class="timeline-item left" data-aos="fade-right">
                     <div class="timeline-content">
@@ -263,15 +1159,16 @@
                         <p>Established with a vision to promote technology education and innovation among students.</p>
                     </div>
                 </div>
-                
+
                 <div class="timeline-item right" data-aos="fade-left">
                     <div class="timeline-content">
                         <div class="timeline-date">2021</div>
                         <h4>First Tech Exhibition</h4>
-                        <p>Showcased innovative student projects to the community and received overwhelming response.</p>
+                        <p>Showcased innovative student projects to the community and received overwhelming response.
+                        </p>
                     </div>
                 </div>
-                
+
                 <div class="timeline-item left" data-aos="fade-right">
                     <div class="timeline-content">
                         <div class="timeline-date">2022</div>
@@ -279,15 +1176,16 @@
                         <p>Won the National Young Innovators Award for our groundbreaking AI project.</p>
                     </div>
                 </div>
-                
+
                 <div class="timeline-item right" data-aos="fade-left">
                     <div class="timeline-content">
                         <div class="timeline-date">2023</div>
                         <h4>International Collaboration</h4>
-                        <p>Partnered with global tech institutions for knowledge exchange and collaborative projects.</p>
+                        <p>Partnered with global tech institutions for knowledge exchange and collaborative projects.
+                        </p>
                     </div>
                 </div>
-                
+
                 <div class="timeline-item left" data-aos="fade-right">
                     <div class="timeline-content">
                         <div class="timeline-date">2024</div>
@@ -295,7 +1193,7 @@
                         <p>Launched dedicated AI research center for students to explore advanced technologies.</p>
                     </div>
                 </div>
-                
+
                 <div class="timeline-item right" data-aos="fade-left">
                     <div class="timeline-content">
                         <div class="timeline-date">2025</div>
@@ -314,12 +1212,13 @@
                 <h2 class="section-heading">Featured Projects</h2>
                 <p class="lead">Innovative solutions created by our talented members</p>
             </div>
-            
+
             <div class="row">
                 <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
                     <div class="card project-card h-100">
                         <div class="project-img-wrapper">
-                            <img src="https://source.unsplash.com/random/600x400/?ai" class="card-img-top" alt="AI Project">
+                            <img src="https://source.unsplash.com/random/600x400/?ai" class="card-img-top"
+                                alt="AI Project">
                             <div class="project-overlay">
                                 <div class="text-white">
                                     <h5>AI Research Project</h5>
@@ -328,16 +1227,18 @@
                         </div>
                         <div class="card-body p-4">
                             <h5 class="card-title text-primary">AI Research</h5>
-                            <p class="card-text">Innovative machine learning algorithms development for predictive analytics.</p>
+                            <p class="card-text">Innovative machine learning algorithms development for predictive
+                                analytics.</p>
                             <a href="#" class="btn btn-sm btn-primary mt-2">Learn More</a>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
                     <div class="card project-card h-100">
                         <div class="project-img-wrapper">
-                            <img src="https://source.unsplash.com/random/600x400/?robotics" class="card-img-top" alt="Robotics Project">
+                            <img src="https://source.unsplash.com/random/600x400/?robotics" class="card-img-top"
+                                alt="Robotics Project">
                             <div class="project-overlay">
                                 <div class="text-white">
                                     <h5>Robotics Innovation</h5>
@@ -346,16 +1247,18 @@
                         </div>
                         <div class="card-body p-4">
                             <h5 class="card-title text-primary">Robotics Innovation</h5>
-                            <p class="card-text">Autonomous systems and intelligent robotics for industrial applications.</p>
+                            <p class="card-text">Autonomous systems and intelligent robotics for industrial
+                                applications.</p>
                             <a href="#" class="btn btn-sm btn-primary mt-2">Learn More</a>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
                     <div class="card project-card h-100">
                         <div class="project-img-wrapper">
-                            <img src="https://source.unsplash.com/random/600x400/?cybersecurity" class="card-img-top" alt="Cybersecurity Project">
+                            <img src="https://source.unsplash.com/random/600x400/?cybersecurity" class="card-img-top"
+                                alt="Cybersecurity Project">
                             <div class="project-overlay">
                                 <div class="text-white">
                                     <h5>Cybersecurity Solutions</h5>
@@ -370,7 +1273,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="text-center mt-4" data-aos="fade-up">
                 <a href="#" class="btn btn-primary">View All Projects</a>
             </div>
@@ -384,7 +1287,7 @@
                 <h2 class="section-heading">Our Team</h2>
                 <p class="lead">Meet the brilliant minds behind Revotech</p>
             </div>
-            
+
             <div class="row">
                 <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
                     <div class="card team-card h-100">
@@ -393,7 +1296,8 @@
                                 <i class="fas fa-user-tie"></i>
                             </div>
                             <h5 class="card-title text-primary">Student Lead</h5>
-                            <p class="card-text">Driving innovation and leadership in Revotech with strategic vision.</p>
+                            <p class="card-text">Driving innovation and leadership in Revotech with strategic vision.
+                            </p>
                             <div class="mt-3">
                                 <h6>Key Responsibilities:</h6>
                                 <ul class="list-unstyled">
@@ -405,7 +1309,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
                     <div class="card team-card h-100">
                         <div class="card-body p-4">
@@ -413,7 +1317,8 @@
                                 <i class="fas fa-cogs"></i>
                             </div>
                             <h5 class="card-title text-primary">Technical Coordinator</h5>
-                            <p class="card-text">Managing technical projects and research initiatives with expertise.</p>
+                            <p class="card-text">Managing technical projects and research initiatives with expertise.
+                            </p>
                             <div class="mt-3">
                                 <h6>Key Responsibilities:</h6>
                                 <ul class="list-unstyled">
@@ -425,7 +1330,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
                     <div class="card team-card h-100">
                         <div class="card-body p-4">
@@ -456,35 +1361,41 @@
                 <h2 class="section-heading">What Our Members Say</h2>
                 <p class="lead">Hear from the students who have experienced the Revotech difference</p>
             </div>
-            
+
             <div class="row">
                 <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
                     <div class="testimonial-card">
-                        <img src="https://source.unsplash.com/random/100x100/?portrait" class="testimonial-avatar" alt="Student 1">
+                        <img src="https://source.unsplash.com/random/100x100/?portrait" class="testimonial-avatar"
+                            alt="Student 1">
                         <div class="testimonial-quote">
-                            <p>Joining Revotech has been a transformative experience. I've gained practical skills that go beyond the classroom and made connections that will last a lifetime.</p>
+                            <p>Joining Revotech has been a transformative experience. I've gained practical skills that
+                                go beyond the classroom and made connections that will last a lifetime.</p>
                         </div>
                         <h5 class="mb-1">Amal Perera</h5>
                         <p class="text-muted">Senior Member, AI Team</p>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
                     <div class="testimonial-card">
-                        <img src="https://source.unsplash.com/random/100x100/?woman" class="testimonial-avatar" alt="Student 2">
+                        <img src="https://source.unsplash.com/random/100x100/?woman" class="testimonial-avatar"
+                            alt="Student 2">
                         <div class="testimonial-quote">
-                            <p>The mentorship and guidance I received at Revotech helped me discover my passion for robotics. Now I'm leading my own project team!</p>
+                            <p>The mentorship and guidance I received at Revotech helped me discover my passion for
+                                robotics. Now I'm leading my own project team!</p>
                         </div>
                         <h5 class="mb-1">Nisha Fernando</h5>
                         <p class="text-muted">Robotics Team Lead</p>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
                     <div class="testimonial-card">
-                        <img src="https://source.unsplash.com/random/100x100/?man" class="testimonial-avatar" alt="Student 3">
+                        <img src="https://source.unsplash.com/random/100x100/?man" class="testimonial-avatar"
+                            alt="Student 3">
                         <div class="testimonial-quote">
-                            <p>Revotech provided me with the platform to experiment with cutting-edge technologies. The hands-on experience has been invaluable for my career.</p>
+                            <p>Revotech provided me with the platform to experiment with cutting-edge technologies. The
+                                hands-on experience has been invaluable for my career.</p>
                         </div>
                         <h5 class="mb-1">Dinesh Rajapaksa</h5>
                         <p class="text-muted">Cybersecurity Specialist</p>
@@ -502,27 +1413,27 @@
                 <h2 class="text-white">Connect with Revotech</h2>
                 <p class="lead text-white">Interested in our work? Reach out to us!</p>
             </div>
-            
+
             <div class="row justify-content-center">
                 <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
                     <div class="contact-form">
                         <form id="contact-form">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-6 mb-3">
                                     <input type="text" class="form-control" placeholder="Your Name" required>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6 mb-3">
                                     <input type="email" class="form-control" placeholder="Your Email" required>
                                 </div>
                             </div>
-                            <input type="text" class="form-control" placeholder="Subject">
-                            <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
-                            <button type="submit" class="btn btn-primary mt-3">Send Message</button>
+                            <input type="text" class="form-control mb-3" placeholder="Subject">
+                            <textarea class="form-control mb-3" rows="5" placeholder="Your Message" required></textarea>
+                            <button type="submit" class="btn btn-primary mt-2">Send Message</button>
                         </form>
                     </div>
                 </div>
             </div>
-            
+
             <!-- Newsletter Signup -->
             <div class="row justify-content-center mt-5" data-aos="fade-up" data-aos-delay="300">
                 <div class="col-lg-8 text-center">
@@ -533,14 +1444,14 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Social Media Icons -->
             <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="400">
-                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-icon" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
             </div>
         </div>
     </section>
@@ -549,17 +1460,17 @@
     <footer class="footer">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 mb-4 mb-lg-0">
+                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
                     <h5 class="footer-heading">Revotech</h5>
                     <p>Innovating Tomorrow at Galahitiya Central College</p>
                     <p class="mt-3">
                         <i class="fas fa-map-marker-alt me-2"></i> Galahitiya Central College, Galahitiya<br>
                         <i class="fas fa-phone me-2"></i> +94 123 456 789<br>
-                        <i class="fas fa-envelope me-2"></i> contact@revotech.edu
+                        <i class="fas fa-envelope me-2"></i> info@revotech.edu
                     </p>
                 </div>
-                
-                <div class="col-lg-4 mb-4 mb-lg-0">
+
+                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
                     <h5 class="footer-heading">Quick Links</h5>
                     <ul class="list-unstyled">
                         <li><a href="#home" class="footer-link">Home</a></li>
@@ -570,20 +1481,20 @@
                         <li><a href="#contact" class="footer-link">Contact</a></li>
                     </ul>
                 </div>
-                
-                <div class="col-lg-4">
+
+                <div class="col-lg-4 col-md-12">
                     <h5 class="footer-heading">Connect With Us</h5>
                     <div class="mb-3">
-                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
                     </div>
                     <p>Join our community and stay updated with the latest technological advancements and events.</p>
                 </div>
             </div>
-            
+
             <div class="text-center copyright">
                 <p>&copy; 2025 Revotech | All Rights Reserved</p>
             </div>
@@ -591,7 +1502,7 @@
     </footer>
 
     <!-- Back to Top Button -->
-    <div class="back-to-top">
+    <div class="back-to-top" aria-label="Back to top">
         <i class="fas fa-arrow-up"></i>
     </div>
 
@@ -599,123 +1510,156 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- AOS Animation Library -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    
+
     <!-- Custom JavaScript -->
-     <script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            disable: 'mobile' // Disable animations on mobile for better performance
+        });
 
+        // Navbar scroll effect
+        window.addEventListener('scroll', function () {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('navbar-scrolled');
+                navbar.style.backgroundColor = 'rgba(30, 78, 140, 0.95)';
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+                navbar.style.backgroundColor = 'var(--primary)';
+            }
+        });
 
-// Initialize AOS
-AOS.init({
-    duration: 800,
-    once: true
-});
+        // Back to top button
+        const backToTop = document.querySelector('.back-to-top');
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
 
-// Navbar scroll effect
-window.addEventListener('scroll', function() {
-    const navbar = document.getElementById('navbar');
-    if (window.scrollY > 50) {
-        navbar.classList.add('navbar-scrolled');
-        navbar.style.backgroundColor = 'rgba(30, 78, 140, 0.95)';
-    } else {
-        navbar.classList.remove('navbar-scrolled');
-        navbar.style.backgroundColor = 'var(--primary)';
-    }
-});
-
-// Back to top button
-const backToTop = document.querySelector('.back-to-top');
-window.addEventListener('scroll', function() {
-    if (window.scrollY > 300) {
-        backToTop.classList.add('visible');
-    } else {
-        backToTop.classList.remove('visible');
-    }
-});
-
-backToTop.addEventListener('click', function() {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-});
-
-// Skill bars animation
-const skillBars = document.querySelectorAll('.skill-progress');
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const progress = entry.target.getAttribute('data-progress');
-            entry.target.style.width = progress + '%';
-            observer.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.5 });
-
-skillBars.forEach(bar => {
-    observer.observe(bar);
-});
-
-// Counter animation
-const counters = document.querySelectorAll('.counter');
-const counterObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const target = parseInt(entry.target.getAttribute('data-target'));
-            const duration = 2000;
-            const step = target / (duration / 16);
-            
-            let current = 0;
-            const updateCounter = () => {
-                current += step;
-                if (current < target) {
-                    entry.target.textContent = Math.ceil(current).toString();
-                    requestAnimationFrame(updateCounter);
-                } else {
-                    entry.target.textContent = target.toString();
-                }
-            };
-            
-            updateCounter();
-            counterObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.5 });
-
-counters.forEach(counter => {
-    counterObserver.observe(counter);
-});
-
-// Smooth scrolling for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        const targetId = this.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
-        
-        if (targetElement) {
+        backToTop.addEventListener('click', function () {
             window.scrollTo({
-                top: targetElement.offsetTop - 70,
+                top: 0,
                 behavior: 'smooth'
             });
+        });
+
+        // Skill bars animation
+        const skillBars = document.querySelectorAll('.skill-progress');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const progress = entry.target.getAttribute('data-progress');
+                    entry.target.style.width = progress + '%';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        skillBars.forEach(bar => {
+            observer.observe(bar);
+        });
+
+        // Counter animation
+        const counters = document.querySelectorAll('.counter');
+        const counterObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseInt(entry.target.getAttribute('data-target'));
+                    const duration = 2000;
+                    const step = target / (duration / 16);
+
+                    let current = 0;
+                    const updateCounter = () => {
+                        current += step;
+                        if (current < target) {
+                            entry.target.textContent = Math.ceil(current).toString();
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            entry.target.textContent = target.toString();
+                        }
+                    };
+
+                    updateCounter();
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(counter => {
+            counterObserver.observe(counter);
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // Close mobile menu when clicking a link
+                const navbarToggler = document.querySelector('.navbar-toggler');
+                const navbarCollapse = document.querySelector('.navbar-collapse');
+                if (navbarCollapse.classList.contains('show')) {
+                    navbarToggler.click();
+                }
+
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Form submission
+        const contactForm = document.getElementById('contact-form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                alert('Thank you for your message! We will get back to you soon.');
+                contactForm.reset();
+            });
         }
-    });
-});
 
-// Form submission
-const contactForm = document.getElementById('contact-form');
-if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert('Thank you for your message! We will get back to you soon.');
-        contactForm.reset();
-    });
-}
+        // Responsive image loading
+        function loadResponsiveImages() {
+            const windowWidth = window.innerWidth;
+            const projectImages = document.querySelectorAll('.project-img-wrapper img');
+            
+            projectImages.forEach(img => {
+                const src = img.getAttribute('src');
+                // Adjust image quality based on screen size
+                if (windowWidth <= 576) {
+                    img.setAttribute('src', src.replace('600x400', '400x300'));
+                }
+            });
+        }
 
+        // Run on page load
+        loadResponsiveImages();
+        
+        // Run on window resize with debounce
+        let resizeTimer;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(loadResponsiveImages, 250);
+        });
 
-     </script>
+        // Fix for mobile devices - prevent zoom on input focus
+        const viewportMeta = document.querySelector('meta[name="viewport"]');
+        if (viewportMeta && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+            viewportMeta.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0');
+        }
+    </script>
 
 </body>
 
 </html>
-
